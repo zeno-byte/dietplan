@@ -1,76 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>30-Day Meal Plan</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero-Carb Meal Plan</title>
 </head>
 <body>
-  <h1>30-Day Meal Plan</h1>
-  <button id="generatePlan">Generate Meal Plan</button>
-  <div id="mealPlan"></div>
+    <h1>Zero-Carb Meal Plan Generator</h1>
+    <button onclick="generateMealPlan()">Generate Daily Meal Plan</button>
+    <h2>Day <span id="dayNumber">1</span></h2>
+    <div id="mealPlan">
+        <h3>Breakfast:</h3>
+        <p id="breakfast"></p>
+        <h3>Lunch:</h3>
+        <p id="lunch"></p>
+        <h3>Dinner:</h3>
+        <p id="dinner"></p>
+    </div>
 
-  <script>
-    const recipes = [
-      // Breakfast Recipes
-      { name: 'Scrambled Eggs with Spinach', type: 'Breakfast' },
-      { name: 'Greek Yogurt with Berries', type: 'Breakfast' },
-      { name: 'Avocado and Bacon Omelette', type: 'Breakfast' },
-      { name: 'Smoked Salmon with Cream Cheese', type: 'Breakfast' },
-      { name: 'Chia Seed Pudding', type: 'Breakfast' },
-      { name: 'Vegetable Frittata', type: 'Breakfast' },
-      { name: 'Cheese and Tomato Omelette', type: 'Breakfast' },
-      { name: 'Mushroom and Spinach Quiche', type: 'Breakfast' },
-      { name: 'Keto Pancakes with Sugar-Free Syrup', type: 'Breakfast' },
-      { name: 'Cauliflower Hash Browns', type: 'Breakfast' },
+    <script>
+        // Zero-carb, no-pork recipes
+        const recipes = {
+            breakfast: [
+                "Scrambled Eggs with Spinach",
+                "Avocado and Bacon Omelet",
+                "Smoked Salmon with Cream Cheese",
+                "Greek Yogurt with Berries",
+                "Kale and Mushroom Frittata",
+            ],
+            lunch: [
+                "Grilled Chicken Salad",
+                "Zucchini Noodles with Pesto",
+                "Cauliflower Rice Stir-Fry",
+                "Tuna Salad with Avocado",
+                "Egg Salad Lettuce Wraps",
+            ],
+            dinner: [
+                "Baked Salmon with Asparagus",
+                "Cauliflower Crust Pizza",
+                "Lemon Herb Grilled Chicken",
+                "Shrimp and Broccoli Stir-Fry",
+                "Beef and Broccoli",
+            ],
+        };
 
-      // Lunch Recipes
-      { name: 'Grilled Chicken Salad', type: 'Lunch' },
-      { name: 'Cobb Salad with Ranch Dressing', type: 'Lunch' },
-      { name: 'Tuna Salad Lettuce Wraps', type: 'Lunch' },
-      { name: 'Egg Salad Lettuce Wraps', type: 'Lunch' },
-      { name: 'Caprese Salad with Pesto', type: 'Lunch' },
-      { name: 'Zucchini Noodles with Pesto', type: 'Lunch' },
-      { name: 'Cauliflower Rice Stir-Fry', type: 'Lunch' },
-      { name: 'Grilled Shrimp Skewers', type: 'Lunch' },
-      { name: 'Salmon Caesar Salad', type: 'Lunch' },
-      { name: 'Avocado and Chicken Lettuce Wraps', type: 'Lunch' },
+        // Function to generate a random meal plan
+        function generateMealPlan() {
+            const dayNumber = document.getElementById("dayNumber");
+            const breakfast = document.getElementById("breakfast");
+            const lunch = document.getElementById("lunch");
+            const dinner = document.getElementById("dinner");
 
-      // Dinner Recipes
-      { name: 'Grilled Steak with Asparagus', type: 'Dinner' },
-      { name: 'Baked Lemon Herb Chicken', type: 'Dinner' },
-      { name: 'Salmon with Garlic Butter', type: 'Dinner' },
-      { name: 'Cauliflower Crust Pizza', type: 'Dinner' },
-      { name: 'Shirataki Noodles with Pesto', type: 'Dinner' },
-      { name: 'Stuffed Bell Peppers with Ground Turkey', type: 'Dinner' },
-      { name: 'Sesame Crusted Tuna Steaks', type: 'Dinner' },
-      { name: 'Chicken and Broccoli Alfredo', type: 'Dinner' },
-      { name: 'Mushroom and Spinach Stuffed Chicken', type: 'Dinner' },
-      { name: 'Grilled Shrimp with Garlic Butter', type: 'Dinner' }
-    ];
+            // Generate random recipes
+            const randomBreakfast = getRandomRecipe(recipes.breakfast);
+            const randomLunch = getRandomRecipe(recipes.lunch);
+            const randomDinner = getRandomRecipe(recipes.dinner);
 
-    const days = 30;
+            // Display the meal plan
+            breakfast.textContent = randomBreakfast;
+            lunch.textContent = randomLunch;
+            dinner.textContent = randomDinner;
 
-    const getRandomRecipe = () => {
-      return recipes[Math.floor(Math.random() * recipes.length)];
-    };
+            // Increment the day
+            dayNumber.textContent = parseInt(dayNumber.textContent) + 1;
+        }
 
-    document.getElementById('generatePlan').addEventListener('click', () => {
-      const mealPlan = document.getElementById('mealPlan');
-      mealPlan.innerHTML = '';
+        // Function to get a random recipe from an array
+        function getRandomRecipe(recipeArray) {
+            const randomIndex = Math.floor(Math.random() * recipeArray.length);
+            return recipeArray[randomIndex];
+        }
 
-      for (let day = 1; day <= days; day++) {
-        const breakfast = getRandomRecipe();
-        const lunch = getRandomRecipe();
-        const dinner = getRandomRecipe();
-
-        const dayPlan = document.createElement('div');
-        dayPlan.innerHTML = `<strong>Day ${day}:</strong><br>
-          Breakfast: ${breakfast.name} (${breakfast.type})<br>
-          Lunch: ${lunch.name} (${lunch.type})<br>
-          Dinner: ${dinner.name} (${dinner.type})<br><br>`;
-
-        mealPlan.appendChild(dayPlan);
-      }
-    });
-  </script>
+        generateMealPlan(); // Generate the initial meal plan
+    </script>
 </body>
 </html>
+
