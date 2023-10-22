@@ -1,15 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diet Plan Generator</title>
-    <link rel="stylesheet" href="styles.css">
+  <title>30-Day Meal Plan</title>
 </head>
 <body>
-    <h1>Daily Diet Plan Generator</h1>
-    <button id="generate-plan">Generate Daily Diet Plan</button>
-    <pre id="plan"></pre>
-    <script src="script.js"></script>
+  <h1>30-Day Meal Plan</h1>
+  <button id="generatePlan">Generate Meal Plan</button>
+  <div id="mealPlan"></div>
+
+  <script>
+    const recipes = [
+      // Breakfast Recipes
+      { name: 'Scrambled Eggs with Spinach', type: 'Breakfast' },
+      { name: 'Greek Yogurt with Berries', type: 'Breakfast' },
+      { name: 'Avocado and Bacon Omelette', type: 'Breakfast' },
+      { name: 'Smoked Salmon with Cream Cheese', type: 'Breakfast' },
+      { name: 'Chia Seed Pudding', type: 'Breakfast' },
+      { name: 'Vegetable Frittata', type: 'Breakfast' },
+      { name: 'Cheese and Tomato Omelette', type: 'Breakfast' },
+      { name: 'Mushroom and Spinach Quiche', type: 'Breakfast' },
+      { name: 'Keto Pancakes with Sugar-Free Syrup', type: 'Breakfast' },
+      { name: 'Cauliflower Hash Browns', type: 'Breakfast' },
+
+      // Lunch Recipes
+      { name: 'Grilled Chicken Salad', type: 'Lunch' },
+      { name: 'Cobb Salad with Ranch Dressing', type: 'Lunch' },
+      { name: 'Tuna Salad Lettuce Wraps', type: 'Lunch' },
+      { name: 'Egg Salad Lettuce Wraps', type: 'Lunch' },
+      { name: 'Caprese Salad with Pesto', type: 'Lunch' },
+      { name: 'Zucchini Noodles with Pesto', type: 'Lunch' },
+      { name: 'Cauliflower Rice Stir-Fry', type: 'Lunch' },
+      { name: 'Grilled Shrimp Skewers', type: 'Lunch' },
+      { name: 'Salmon Caesar Salad', type: 'Lunch' },
+      { name: 'Avocado and Chicken Lettuce Wraps', type: 'Lunch' },
+
+      // Dinner Recipes
+      { name: 'Grilled Steak with Asparagus', type: 'Dinner' },
+      { name: 'Baked Lemon Herb Chicken', type: 'Dinner' },
+      { name: 'Salmon with Garlic Butter', type: 'Dinner' },
+      { name: 'Cauliflower Crust Pizza', type: 'Dinner' },
+      { name: 'Shirataki Noodles with Pesto', type: 'Dinner' },
+      { name: 'Stuffed Bell Peppers with Ground Turkey', type: 'Dinner' },
+      { name: 'Sesame Crusted Tuna Steaks', type: 'Dinner' },
+      { name: 'Chicken and Broccoli Alfredo', type: 'Dinner' },
+      { name: 'Mushroom and Spinach Stuffed Chicken', type: 'Dinner' },
+      { name: 'Grilled Shrimp with Garlic Butter', type: 'Dinner' }
+    ];
+
+    const days = 30;
+
+    const getRandomRecipe = () => {
+      return recipes[Math.floor(Math.random() * recipes.length)];
+    };
+
+    document.getElementById('generatePlan').addEventListener('click', () => {
+      const mealPlan = document.getElementById('mealPlan');
+      mealPlan.innerHTML = '';
+
+      for (let day = 1; day <= days; day++) {
+        const breakfast = getRandomRecipe();
+        const lunch = getRandomRecipe();
+        const dinner = getRandomRecipe();
+
+        const dayPlan = document.createElement('div');
+        dayPlan.innerHTML = `<strong>Day ${day}:</strong><br>
+          Breakfast: ${breakfast.name} (${breakfast.type})<br>
+          Lunch: ${lunch.name} (${lunch.type})<br>
+          Dinner: ${dinner.name} (${dinner.type})<br><br>`;
+
+        mealPlan.appendChild(dayPlan);
+      }
+    });
+  </script>
 </body>
 </html>
